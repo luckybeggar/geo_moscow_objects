@@ -1,0 +1,5 @@
+{
+    "require": {
+        "promopult/dadata-client": "^1.0"
+    }
+}

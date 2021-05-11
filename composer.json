@@ -1,5 +1,13 @@
 {
+    "autoload": {
+        "psr-0": {
+            "": [
+                "library/"
+            ]
+        }
+    },
     "require": {
-        "promopult/dadata-client": "^1.0"
+        "promopult/dadata-client": "^1.0",
+        "guzzlehttp/guzzle": "~7.2.0"
     }
 }

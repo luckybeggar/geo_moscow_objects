@@ -1,23 +1,22 @@
 <?php
 
-use Application\ApplicationConfig;
+use Application\JSONConverter;
+use \Application\Geocoder\Dadata;
 
 require __DIR__ . '/../../init.php';
 
-$config = ApplicationConfig::getConfig();
+/** @see http://edu.repetitor-general.ru/rating/ege2020.php */
 
-$client = new \Promopult\Dadata\Client(
-    $config['dadata_api_key'],
-    $config['dadata_api_secret'],
-    new \GuzzleHttp\Client()
-);
+$jsonFile = __DIR__ . '/../../data_sources/edu.repetitor-general.ru/ege2020.json';
+$exportFile = __DIR__ . '/../../export/ege2020_yandex.csv';
 
-$address = $client->clean->address('Москва Покровка 1');
+$converter  = new JSONConverter($jsonFile, new Dadata());
+$exportRows = $converter->exportToYandex();
 
-echo $address[0]['source'] . "\n";
+$out = fopen($exportFile, 'w');
 
-echo $address[0]['result'] . "\n";
+foreach ($exportRows as $exportRow) {
+    fputcsv($out, $exportRow, ';', '"');
+}
 
-echo $address[0]['geo_lat'] . "\n";
-
-echo $address[0]['geo_lon'] . "\n";
+fclose($out);

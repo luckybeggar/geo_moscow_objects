@@ -1,4 +1,6 @@
 {
+    "name": "Geo Moscow Objects",
+    "description": "Geo Moscow Objects",
     "autoload": {
         "psr-0": {
             "": [
@@ -8,6 +10,7 @@
     },
     "require": {
         "promopult/dadata-client": "^1.0",
-        "guzzlehttp/guzzle": "~7.2.0"
+        "guzzlehttp/guzzle": "~7.2.0",
+        "ext-json": "*"
     }
 }

@@ -39,7 +39,7 @@ class JSONConverter {
                 echo $counter . ' ' . $record['address'] . "\n";
 
             }
-            if ($this->limit && $counter > $this->limit) {
+            if ($this->limit && $counter >= $this->limit) {
                 break;
             }
         }

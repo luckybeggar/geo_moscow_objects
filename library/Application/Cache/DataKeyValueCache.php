@@ -20,6 +20,7 @@ class DataKeyValueCache implements CacheInterface {
 
     public function cache(string $key, callable $method) {
         if ($this->isRecordExists($key)) {
+            echo("cache \n");
             return $this->getRecord($key);
         }
         $value = $method();

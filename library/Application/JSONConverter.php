@@ -14,8 +14,8 @@ class JSONConverter {
     private $geocoder;
 
     public function __construct(string $dataFilename, GeocoderInterface $geocoder) {
-        $this->fileData       = json_decode(file_get_contents($dataFilename), true);
-        $this->geocoder       = $geocoder;
+        $this->fileData = json_decode(file_get_contents($dataFilename), true);
+        $this->geocoder = $geocoder;
     }
 
     public function exportToYandex() {
@@ -23,7 +23,7 @@ class JSONConverter {
             0 => ["Широта","Долгота","Описание","Подпись","Номер метки"],
         ];
         foreach ($this->fileData as $record) {
-            $geoPoint = $this->geocoder->geocode('Москва ' . $record['address']);
+            $geoPoint = $this->geocoder->geocode($record['address']);
             if ($geoPoint) {
                 $export[] = [
                     $geoPoint->latitude,

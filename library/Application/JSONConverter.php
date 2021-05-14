@@ -11,17 +11,20 @@ class JSONConverter {
     /**
      * @var callable
      */
-    private $geocoder;
+    private      $geocoder;
+    private ?int $limit;
 
-    public function __construct(string $dataFilename, GeocoderInterface $geocoder) {
+    public function __construct(string $dataFilename, GeocoderInterface $geocoder, ?int $limit = null) {
         $this->fileData = json_decode(file_get_contents($dataFilename), true);
         $this->geocoder = $geocoder;
+        $this->limit = $limit;
     }
 
     public function exportToYandex() {
         $export = [
             0 => ["Широта","Долгота","Описание","Подпись","Номер метки"],
         ];
+        $counter = 0;
         foreach ($this->fileData as $record) {
             $geoPoint = $this->geocoder->geocode($record['address']);
             if ($geoPoint) {
@@ -32,6 +35,12 @@ class JSONConverter {
                     $record['name'],
                     $record['number'],
                 ];
+                $counter++;
+                echo $counter . ' ' . $record['address'] . "\n";
+
+            }
+            if ($this->limit && $counter > $this->limit) {
+                break;
             }
         }
 
